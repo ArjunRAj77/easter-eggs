@@ -1,0 +1,131 @@
+[
+  {
+    "id": "konami-code",
+    "title": "Konami Code",
+    "description": "The classic cheat code sequence: Up, Up, Down, Down, Left, Right, Left, Right, B, A.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["classic", "keyboard", "cheat"],
+    "previewType": "icon",
+    "iconName": "Gamepad2",
+    "snippets": [
+      {
+        "label": "React Hook",
+        "language": "typescript",
+        "code": "import { useEffect, useState } from 'react';\n\nexport const useKonamiCode = (callback: () => void) => {\n  const [input, setInput] = useState<string[]>([]);\n  const sequence = [\n    'ArrowUp', 'ArrowUp', \n    'ArrowDown', 'ArrowDown', \n    'ArrowLeft', 'ArrowRight', \n    'ArrowLeft', 'ArrowRight', \n    'b', 'a'\n  ];\n\n  useEffect(() => {\n    const handleKeyDown = (e: KeyboardEvent) => {\n      const newInput = [...input, e.key];\n      if (newInput.length > sequence.length) {\n        newInput.shift();\n      }\n      setInput(newInput);\n\n      if (newInput.join('') === sequence.join('')) {\n        callback();\n        setInput([]);\n      }\n    };\n\n    window.addEventListener('keydown', handleKeyDown);\n    return () => window.removeEventListener('keydown', handleKeyDown);\n  }, [input, callback]);\n};"
+      },
+      {
+        "label": "Vanilla JS",
+        "language": "javascript",
+        "code": "const konamiCode = [\n  'ArrowUp', 'ArrowUp', \n  'ArrowDown', 'ArrowDown', \n  'ArrowLeft', 'ArrowRight', \n  'ArrowLeft', 'ArrowRight', \n  'b', 'a'\n];\nlet konamiPosition = 0;\n\ndocument.addEventListener('keydown', function(e) {\n  const requiredKey = konamiCode[konamiPosition];\n  if (e.key === requiredKey) {\n    konamiPosition++;\n    if (konamiPosition === konamiCode.length) {\n      activateCheats();\n      konamiPosition = 0;\n    }\n  } else {\n    konamiPosition = 0;\n  }\n});\n\nfunction activateCheats() {\n  alert(\"Cheats activated!\");\n}"
+      }
+    ]
+  },
+  {
+    "id": "confetti-spam",
+    "title": "Confetti Spam",
+    "description": "Unleash a burst of confetti when a user clicks a button repeatedly.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["visual", "celebration", "clicks"],
+    "previewType": "icon",
+    "iconName": "Zap",
+    "snippets": [
+      {
+        "label": "React + canvas-confetti",
+        "language": "typescript",
+        "code": "import confetti from 'canvas-confetti';\n\nconst handleConfetti = () => {\n  confetti({\n    particleCount: 100,\n    spread: 70,\n    origin: { y: 0.6 }\n  });\n};\n\n// Usage: <button onClick={handleConfetti}>Celebrate!</button>"
+      }
+    ]
+  },
+  {
+    "id": "dark-mode-toggle",
+    "title": "Hidden Dark Mode",
+    "description": "Toggle dark mode by clicking an element 5 times rapidly.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["theme", "hidden", "ui"],
+    "previewType": "icon",
+    "iconName": "Ghost",
+    "snippets": [
+      {
+        "label": "React",
+        "language": "typescript",
+        "code": "import { useState } from 'react';\n\nexport const HiddenDarkMode = () => {\n  const [clicks, setClicks] = useState(0);\n\n  const handleClick = () => {\n    setClicks(prev => {\n      const newCount = prev + 1;\n      if (newCount === 5) {\n        document.documentElement.classList.toggle('dark');\n        return 0;\n      }\n      return newCount;\n    });\n  };\n\n  return (\n    <div onClick={handleClick} className=\"cursor-default select-none\">\n      Secret Area\n    </div>\n  );\n};"
+      }
+    ]
+  },
+  {
+    "id": "shake-surprise",
+    "title": "Shake to Surprise",
+    "description": "Detect device shake on mobile to trigger a hidden modal.",
+    "category": "Mobile",
+    "difficulty": "Medium",
+    "tags": ["mobile", "accelerometer", "interaction"],
+    "previewType": "icon",
+    "iconName": "Smartphone",
+    "snippets": [
+      {
+        "label": "React Native",
+        "language": "typescript",
+        "code": "import { useEffect, useState } from 'react';\nimport { Accelerometer } from 'expo-sensors';\n\nexport const useShake = (onShake: () => void) => {\n  const [data, setData] = useState({ x: 0, y: 0, z: 0 });\n  const [subscription, setSubscription] = useState<any>(null);\n\n  useEffect(() => {\n    const _subscribe = () => {\n      setSubscription(\n        Accelerometer.addListener(accelerometerData => {\n          setData(accelerometerData);\n        })\n      );\n    };\n\n    const _unsubscribe = () => {\n      subscription && subscription.remove();\n      setSubscription(null);\n    };\n\n    _subscribe();\n    return () => _unsubscribe();\n  }, []);\n\n  useEffect(() => {\n    const { x, y, z } = data;\n    const totalForce = Math.abs(x) + Math.abs(y) + Math.abs(z);\n    if (totalForce > 1.78) { // Threshold for shake\n      onShake();\n    }\n  }, [data, onShake]);\n};"
+      }
+    ]
+  },
+  {
+    "id": "terminal-secret",
+    "title": "Terminal Secret",
+    "description": "A hidden command in your CLI tool that prints ASCII art.",
+    "category": "CLI",
+    "difficulty": "Easy",
+    "tags": ["cli", "ascii", "hidden"],
+    "previewType": "icon",
+    "iconName": "Terminal",
+    "snippets": [
+      {
+        "label": "Node.js",
+        "language": "javascript",
+        "code": "const args = process.argv.slice(2);\n\nif (args[0] === 'secret') {\n  console.log(`\n   _    _      _ _       \n  | |  | |    | | |      \n  | |__| | ___| | | ___  \n  |  __  |/ _ \\ | |/ _ \\ \n  | |  | |  __/ | | (_) |\n  |_|  |_|\\___|_|_|\\___/ \n  `);\n  process.exit(0);\n}"
+      },
+      {
+        "label": "Python",
+        "language": "python",
+        "code": "import sys\n\nif len(sys.argv) > 1 and sys.argv[1] == \"secret\":\n    print(\"\"\"\n   _    _      _ _       \n  | |  | |    | | |      \n  | |__| | ___| | | ___  \n  |  __  |/ _ \\ | |/ _ \\ \n  | |  | |  __/ | | (_) |\n  |_|  |_|\\___|_|_|\\___/ \n    \"\"\")\n    sys.exit()"
+      }
+    ]
+  },
+  {
+    "id": "rickroll-redirect",
+    "title": "Rickroll Redirect",
+    "description": "Redirect users to \"Never Gonna Give You Up\" when they try to access a forbidden path.",
+    "category": "Web",
+    "difficulty": "Chaotic",
+    "tags": ["prank", "redirect", "classic"],
+    "previewType": "icon",
+    "iconName": "Skull",
+    "snippets": [
+      {
+        "label": "React Router",
+        "language": "typescript",
+        "code": "import { useEffect } from 'react';\nimport { useNavigate } from 'react-router-dom';\n\nexport const ForbiddenPage = () => {\n  useEffect(() => {\n    window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';\n  }, []);\n\n  return null;\n};"
+      }
+    ]
+  },
+  {
+    "id": "console-art",
+    "title": "Console Art",
+    "description": "Display a custom message or art in the browser developer console.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["console", "branding", "hiring"],
+    "previewType": "icon",
+    "iconName": "Monitor",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "console.log(\n  '%c Stop! ',\n  'color: red; font-size: 30px; font-weight: bold; text-shadow: 2px 2px black;'\n);\nconsole.log(\n  '%c This is a browser feature intended for developers. If someone told you to copy-paste something here to enable a feature or \"hack\" someone\\'s account, it is a scam.',\n  'font-size: 16px;'\n);"
+      }
+    ]
+  }
+]
