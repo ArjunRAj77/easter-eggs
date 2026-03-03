@@ -15,6 +15,11 @@ import Confetti from 'react-confetti';
 import { useWindowSize } from 'react-use';
 import { Plus } from 'lucide-react';
 
+/**
+ * Main Application Component.
+ * Manages state for search, filtering, and selected easter egg.
+ * Also includes a global Konami code listener.
+ */
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All');
@@ -25,6 +30,7 @@ function App() {
   const { width, height } = useWindowSize();
 
   // Konami Code Listener for the site itself
+  // Triggers confetti when the sequence is entered
   useEffect(() => {
     const sequence = [
       'ArrowUp', 'ArrowUp', 
@@ -62,6 +68,7 @@ function App() {
     };
   }, []);
 
+  // Filter eggs based on search query, category, and difficulty
   const filteredEggs = eggs.filter((egg) => {
     const matchesSearch = egg.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           egg.description.toLowerCase().includes(searchQuery.toLowerCase());

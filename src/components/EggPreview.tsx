@@ -9,6 +9,10 @@ interface EggPreviewProps {
   egg: EasterEgg;
 }
 
+/**
+ * Component to render interactive previews for specific easter eggs.
+ * Uses a switch statement to determine which preview component to render based on egg.id.
+ */
 export const EggPreview: React.FC<EggPreviewProps> = ({ egg }) => {
   const { width, height } = useWindowSize();
 
@@ -32,6 +36,7 @@ export const EggPreview: React.FC<EggPreviewProps> = ({ egg }) => {
     case 'dvd-screensaver':
       return <DVDPreview />;
     default:
+      // Default fallback for eggs without a specific preview implementation
       return (
         <div className="flex flex-col items-center justify-center h-64 text-slate-500 text-center p-8">
           <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
@@ -46,6 +51,10 @@ export const EggPreview: React.FC<EggPreviewProps> = ({ egg }) => {
   }
 };
 
+/**
+ * Preview component for the Konami Code easter egg.
+ * Listens for the sequence: Up, Up, Down, Down, Left, Right, Left, Right, B, A.
+ */
 const KonamiPreview = () => {
   const [keys, setKeys] = useState<string[]>([]);
   const [success, setSuccess] = useState(false);
@@ -103,6 +112,10 @@ const KonamiPreview = () => {
   );
 };
 
+/**
+ * Preview component for Confetti Spam.
+ * Triggers a confetti explosion on button click.
+ */
 const ConfettiPreview = () => {
   const [fire, setFire] = useState(false);
   const { width, height } = useWindowSize();
@@ -134,6 +147,10 @@ const ConfettiPreview = () => {
   );
 };
 
+/**
+ * Preview component for Barrel Roll.
+ * Rotates the content 360 degrees when clicked.
+ */
 const BarrelRollPreview = () => {
   const [rolling, setRolling] = useState(false);
   
@@ -159,6 +176,10 @@ const BarrelRollPreview = () => {
   );
 };
 
+/**
+ * Preview component for Spinning Elements.
+ * Elements spin when hovered over.
+ */
 const SpinHoverPreview = () => {
   return (
     <div className="flex flex-col items-center justify-center h-64 gap-8">
@@ -186,6 +207,10 @@ const SpinHoverPreview = () => {
   );
 };
 
+/**
+ * Preview component for the Blink Tag.
+ * Simulates the old <blink> tag using CSS animation.
+ */
 const BlinkPreview = () => {
   return (
     <div className="flex flex-col items-center justify-center h-64">
@@ -204,6 +229,10 @@ const BlinkPreview = () => {
   );
 };
 
+/**
+ * Preview component for Marquee Madness.
+ * Simulates the scrolling <marquee> tag using CSS animation.
+ */
 const MarqueePreview = () => {
   return (
     <div className="flex flex-col items-center justify-center h-64 w-full overflow-hidden">
@@ -227,6 +256,10 @@ const MarqueePreview = () => {
   );
 };
 
+/**
+ * Preview component for Pacman Loader.
+ * CSS-only Pacman animation.
+ */
 const PacmanPreview = () => {
   return (
     <div className="flex flex-col items-center justify-center h-64 bg-black">
@@ -251,6 +284,10 @@ const PacmanPreview = () => {
   );
 };
 
+/**
+ * Preview component for Hacker Typer.
+ * Types out code automatically when any key is pressed.
+ */
 const HackerTyperPreview = () => {
   const [text, setText] = useState('');
   const code = "const secret = 'algorithm';\nfunction hack() {\n  return 'access granted';\n}";
@@ -276,6 +313,10 @@ const HackerTyperPreview = () => {
   );
 };
 
+/**
+ * Preview component for DVD Screensaver.
+ * Simulates the bouncing DVD logo using CSS animation.
+ */
 const DVDPreview = () => {
   return (
     <div className="flex items-center justify-center h-64 w-full bg-black relative overflow-hidden">

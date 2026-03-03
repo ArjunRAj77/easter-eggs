@@ -7,6 +7,10 @@ interface LayoutProps {
   onOpenSubmission?: () => void;
 }
 
+/**
+ * Layout component that wraps the application content.
+ * Includes the StarBackground, Navigation Bar, and Footer.
+ */
 export const Layout: React.FC<LayoutProps> = ({ children, onOpenSubmission }) => {
   return (
     <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-[#818cf8] selection:text-white relative">

@@ -11,6 +11,7 @@ interface EggDetailProps {
   onClose: () => void;
 }
 
+// Map of icon names to Lucide icon components
 const iconMap: Record<string, any> = {
   Gamepad2,
   Terminal,
@@ -76,10 +77,14 @@ const iconMap: Record<string, any> = {
 };
 
 export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
+  // State to track the active tab (code snippet index or preview)
+  // 0 to snippets.length - 1: Code Snippets
+  // snippets.length: Preview Tab
   const [activeTab, setActiveTab] = useState(0);
 
   if (!egg) return null;
 
+  // Get the icon component based on the egg's icon name, default to Smile
   const Icon = iconMap[egg.iconName] || Smile;
 
   return (
@@ -142,9 +147,11 @@ export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
                   </div>
                 </div>
 
-                {/* Right: Code */}
+                {/* Right: Code & Preview Section */}
                 <div className="bg-[#020617] border-l border-white/5 flex flex-col">
+                  {/* Tab Navigation */}
                   <div className="flex items-center border-b border-white/5 overflow-x-auto no-scrollbar">
+                    {/* Render tabs for each code snippet */}
                     {egg.snippets.map((snippet, index) => (
                       <button
                         key={index}
@@ -159,6 +166,7 @@ export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
                         {snippet.label}
                       </button>
                     ))}
+                    {/* Render Preview tab button */}
                     <button
                       onClick={() => setActiveTab(egg.snippets.length)}
                       className={clsx(
@@ -171,15 +179,17 @@ export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
                       <Zap size={14} /> Preview
                     </button>
                   </div>
-                  
+                  {/* Tab Content Area */}
                   <div className="flex-grow overflow-y-auto max-h-[600px]">
                     {activeTab < egg.snippets.length ? (
+                      // Render Code Block for selected snippet
                       <CodeBlock
                         code={egg.snippets[activeTab].code}
                         language={egg.snippets[activeTab].language}
                         label={egg.snippets[activeTab].label}
                       />
                     ) : (
+                      // Render Preview Component
                       <div className="p-6 h-full flex flex-col">
                          <EggPreview egg={egg} />
                       </div>

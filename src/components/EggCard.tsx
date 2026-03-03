@@ -10,6 +10,7 @@ interface EggCardProps {
   onClick: (egg: EasterEgg) => void;
 }
 
+// Map of icon names to Lucide icon components
 const iconMap: Record<string, LucideIcon> = {
   Gamepad2,
   Terminal,
@@ -88,7 +89,12 @@ const difficultyColors: Record<Difficulty, string> = {
   Chaotic: 'text-red-400',
 };
 
+/**
+ * Component to display a single easter egg card.
+ * Handles hover effects and click interactions.
+ */
 export const EggCard: React.FC<EggCardProps> = ({ egg, onClick }) => {
+  // Get the icon component based on the egg's icon name, default to Smile
   const Icon = iconMap[egg.iconName] || Smile;
 
   return (

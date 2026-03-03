@@ -1,5 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 
+/**
+ * Interface representing a single star in the background.
+ */
 interface Star {
   x: number;
   y: number;
@@ -11,6 +14,10 @@ interface Star {
   twinkleSpeed: number;
 }
 
+/**
+ * Component to render an animated star background.
+ * Uses HTML5 Canvas to draw stars with twinkling and trailing effects.
+ */
 export const StarBackground: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -24,6 +31,7 @@ export const StarBackground: React.FC = () => {
     let stars: Star[] = [];
     let animationFrameId: number;
 
+    // Initialize stars with random properties
     const initStars = () => {
       const starCount = Math.floor((window.innerWidth * window.innerHeight) / 4000);
       stars = [];
@@ -47,6 +55,7 @@ export const StarBackground: React.FC = () => {
       initStars();
     };
 
+    // Animation loop to draw stars and update their positions
     const draw = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       
