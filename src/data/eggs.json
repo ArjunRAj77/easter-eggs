@@ -85,12 +85,12 @@
       {
         "label": "Node.js",
         "language": "javascript",
-        "code": "const args = process.argv.slice(2);\n\nif (args[0] === 'secret') {\n  console.log(`\n   _    _      _ _       \n  | |  | |    | | |      \n  | |__| | ___| | | ___  \n  |  __  |/ _ \\ | |/ _ \\ \n  | |  | |  __/ | | (_) |\n  |_|  |_|\\___|_|_|\\___/ \n  `);\n  process.exit(0);\n}"
+        "code": "const args = process.argv.slice(2);\n\nif (args[0] === 'secret') {\n  console.log(`\\n   _    _      _ _       \\n  | |  | |    | | |      \\n  | |__| | ___| | | ___  \\n  |  __  |/ _ \\\\ | |/ _ \\\\ \\n  | |  | |  __/ | | (_) |\\n  |_|  |_|\\\\___|_|_|\\\\___/ \\n  `);\n  process.exit(0);\n}"
       },
       {
         "label": "Python",
         "language": "python",
-        "code": "import sys\n\nif len(sys.argv) > 1 and sys.argv[1] == \"secret\":\n    print(\"\"\"\n   _    _      _ _       \n  | |  | |    | | |      \n  | |__| | ___| | | ___  \n  |  __  |/ _ \\ | |/ _ \\ \n  | |  | |  __/ | | (_) |\n  |_|  |_|\\___|_|_|\\___/ \n    \"\"\")\n    sys.exit()"
+        "code": "import sys\n\nif len(sys.argv) > 1 and sys.argv[1] == \"secret\":\n    print(\"\"\"\\n   _    _      _ _       \\n  | |  | |    | | |      \\n  | |__| | ___| | | ___  \\n  |  __  |/ _ \\\\ | |/ _ \\\\ \\n  | |  | |  __/ | | (_) |\\n  |_|  |_|\\\\___|_|_|\\\\___/ \\n    \"\"\")\n    sys.exit()"
       }
     ]
   },
@@ -125,6 +125,912 @@
         "label": "JavaScript",
         "language": "javascript",
         "code": "console.log(\n  '%c Stop! ',\n  'color: red; font-size: 30px; font-weight: bold; text-shadow: 2px 2px black;'\n);\nconsole.log(\n  '%c This is a browser feature intended for developers. If someone told you to copy-paste something here to enable a feature or \"hack\" someone\\'s account, it is a scam.',\n  'font-size: 16px;'\n);"
+      }
+    ]
+  },
+  {
+    "id": "gravity-fall",
+    "title": "Gravity Fall",
+    "description": "Make all elements on the page fall down as if affected by gravity.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["physics", "chaos", "visual"],
+    "previewType": "icon",
+    "iconName": "ArrowDown",
+    "snippets": [
+      {
+        "label": "JavaScript (Matter.js)",
+        "language": "javascript",
+        "code": "// Requires Matter.js library\n// This is a simplified example. Full implementation requires traversing the DOM and creating bodies for each element.\n\nfunction activateGravity() {\n  const engine = Matter.Engine.create();\n  const render = Matter.Render.create({\n    element: document.body,\n    engine: engine,\n    options: { wireframes: false }\n  });\n  \n  // Add bodies here...\n  \n  Matter.Runner.run(engine);\n  Matter.Render.run(render);\n}"
+      }
+    ]
+  },
+  {
+    "id": "barrel-roll",
+    "title": "Do a Barrel Roll",
+    "description": "Spin the entire page 360 degrees.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["css", "animation", "classic"],
+    "previewType": "icon",
+    "iconName": "RotateCw",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "@keyframes barrelRoll {\n  0% { transform: rotate(0deg); }\n  100% { transform: rotate(360deg); }\n}\n\n.barrel-roll {\n  animation: barrelRoll 1s ease-in-out;\n}"
+      },
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "document.body.classList.add('barrel-roll');\nsetTimeout(() => {\n  document.body.classList.remove('barrel-roll');\n}, 1000);"
+      }
+    ]
+  },
+  {
+    "id": "ascii-video",
+    "title": "ASCII Video Player",
+    "description": "Render a video as ASCII characters in the terminal or console.",
+    "category": "CLI",
+    "difficulty": "Chaotic",
+    "tags": ["video", "ascii", "terminal"],
+    "previewType": "icon",
+    "iconName": "Film",
+    "snippets": [
+      {
+        "label": "Python",
+        "language": "python",
+        "code": "import cv2\nimport os\n\n# Simplified ASCII mapping\nASCII_CHARS = \"@%#*+=-:. \"\n\ndef frame_to_ascii(frame):\n    # Resize and map pixels to ASCII chars\n    pass\n\ncap = cv2.VideoCapture('video.mp4')\nwhile True:\n    ret, frame = cap.read()\n    if not ret: break\n    print(frame_to_ascii(frame))\n    os.system('cls' if os.name == 'nt' else 'clear')"
+      }
+    ]
+  },
+  {
+    "id": "teapot-418",
+    "title": "I'm a Teapot",
+    "description": "Return HTTP 418 status code from your server.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["http", "standard", "server"],
+    "previewType": "icon",
+    "iconName": "Coffee",
+    "snippets": [
+      {
+        "label": "Express.js",
+        "language": "javascript",
+        "code": "app.get('/coffee', (req, res) => {\n  res.status(418).send(\"I'm a teapot\");\n});"
+      }
+    ]
+  },
+  {
+    "id": "bsod-fake",
+    "title": "Blue Screen of Death",
+    "description": "Trigger a fake BSOD overlay on a specific key combination.",
+    "category": "Web",
+    "difficulty": "Chaotic",
+    "tags": ["prank", "windows", "ui"],
+    "previewType": "icon",
+    "iconName": "Monitor",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": ".bsod {\n  position: fixed;\n  inset: 0;\n  background: #0000AA;\n  color: white;\n  font-family: 'Courier New', monospace;\n  z-index: 9999;\n  display: none;\n}\n.bsod.active { display: block; }"
+      }
+    ]
+  },
+  {
+    "id": "mirror-mode",
+    "title": "Mirror Mode",
+    "description": "Flip the entire website horizontally.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["css", "transform", "visual"],
+    "previewType": "icon",
+    "iconName": "RotateCw",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "body.mirror {\n  transform: scaleX(-1);\n}"
+      }
+    ]
+  },
+  {
+    "id": "upside-down",
+    "title": "Upside Down",
+    "description": "Flip the entire website vertically (Stranger Things style).",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["css", "transform", "visual"],
+    "previewType": "icon",
+    "iconName": "ArrowDown",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "body.upside-down {\n  transform: rotate(180deg);\n}"
+      }
+    ]
+  },
+  {
+    "id": "spin-hover",
+    "title": "Spinning Elements",
+    "description": "Make every image on the page spin when hovered.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["css", "animation", "fun"],
+    "previewType": "icon",
+    "iconName": "RotateCw",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "img:hover {\n  animation: spin 1s linear infinite;\n}\n@keyframes spin {\n  100% { transform: rotate(360deg); }\n}"
+      }
+    ]
+  },
+  {
+    "id": "comic-sans",
+    "title": "Comic Sans Mode",
+    "description": "Change all fonts on the page to Comic Sans MS.",
+    "category": "Web",
+    "difficulty": "Chaotic",
+    "tags": ["font", "typography", "prank"],
+    "previewType": "icon",
+    "iconName": "Smile",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "body.comic-sans * {\n  font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif !important;\n}"
+      }
+    ]
+  },
+  {
+    "id": "blink-tag",
+    "title": "The Blink Tag",
+    "description": "Bring back the 90s with a CSS implementation of the <blink> tag.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["retro", "css", "90s"],
+    "previewType": "icon",
+    "iconName": "Zap",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": ".blink {\n  animation: blinker 1s linear infinite;\n}\n@keyframes blinker {\n  50% { opacity: 0; }\n}"
+      }
+    ]
+  },
+  {
+    "id": "marquee-tag",
+    "title": "Marquee Madness",
+    "description": "Make elements scroll across the screen like the old <marquee> tag.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["retro", "css", "90s"],
+    "previewType": "icon",
+    "iconName": "ArrowRight",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": ".marquee {\n  overflow: hidden;\n  white-space: nowrap;\n  animation: marquee 10s linear infinite;\n}\n@keyframes marquee {\n  0% { transform: translateX(100%); }\n  100% { transform: translateX(-100%); }\n}"
+      }
+    ]
+  },
+  {
+    "id": "clippy-js",
+    "title": "Clippy.js",
+    "description": "Add the nostalgic Microsoft Office assistant to your web page.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["library", "retro", "assistant"],
+    "previewType": "icon",
+    "iconName": "Smile",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "// Using clippy.js library\nclippy.load('Merlin', function(agent){\n    agent.show();\n    agent.speak('It looks like you are writing a letter.');\n});"
+      }
+    ]
+  },
+  {
+    "id": "harlem-shake",
+    "title": "Harlem Shake",
+    "description": "Inject a script that makes all DOM elements dance to the beat.",
+    "category": "Web",
+    "difficulty": "Chaotic",
+    "tags": ["audio", "animation", "viral"],
+    "previewType": "icon",
+    "iconName": "Music",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "// Load the harlem shake script dynamically\nconst script = document.createElement('script');\nscript.src = 'https://s3.amazonaws.com/moovweb-marketing/playground/harlem-shake.js';\ndocument.body.appendChild(script);"
+      }
+    ]
+  },
+  {
+    "id": "dvd-screensaver",
+    "title": "DVD Screensaver",
+    "description": "A bouncing logo that changes color when it hits the edge.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["canvas", "animation", "retro"],
+    "previewType": "icon",
+    "iconName": "Monitor",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "// Simplified logic\nlet x = 0, y = 0, dx = 2, dy = 2;\nfunction animate() {\n  x += dx; y += dy;\n  if (x + width > canvas.width || x < 0) dx = -dx;\n  if (y + height > canvas.height || y < 0) dy = -dy;\n  requestAnimationFrame(animate);\n}"
+      }
+    ]
+  },
+  {
+    "id": "nyan-cat-fly",
+    "title": "Nyan Cat Flight",
+    "description": "Summon Nyan Cat to fly across your screen with a rainbow trail.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["meme", "animation", "cat"],
+    "previewType": "icon",
+    "iconName": "Rocket",
+    "snippets": [
+      {
+        "label": "CSS/JS",
+        "language": "javascript",
+        "code": "// Create img element with Nyan Cat gif\n// Animate using CSS translateX from -100% to 100vw"
+      }
+    ]
+  },
+  {
+    "id": "pacman-loader",
+    "title": "Pacman Loader",
+    "description": "Replace your loading spinner with a CSS Pacman eating dots.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["css", "loading", "game"],
+    "previewType": "icon",
+    "iconName": "Ghost",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": ".pacman {\n  width: 0px; height: 0px;\n  border-right: 30px solid transparent;\n  border-top: 30px solid yellow;\n  border-left: 30px solid yellow;\n  border-bottom: 30px solid yellow;\n  border-radius: 30px;\n  animation: eat 0.5s infinite;\n}"
+      }
+    ]
+  },
+  {
+    "id": "starfield-bg",
+    "title": "Warp Speed",
+    "description": "Create a Star Wars style warp speed effect on canvas.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["canvas", "space", "visual"],
+    "previewType": "icon",
+    "iconName": "Star",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "// Canvas implementation of moving stars from center to edges"
+      }
+    ]
+  },
+  {
+    "id": "hacker-typer",
+    "title": "Hacker Typer",
+    "description": "Type random keys but output valid code on the screen.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["prank", "typing", "movie"],
+    "previewType": "icon",
+    "iconName": "Terminal",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "const code = \"const secret = 'algorithm';\";\nlet index = 0;\ndocument.addEventListener('keydown', () => {\n  document.body.innerText += code[index % code.length];\n  index++;\n});"
+      }
+    ]
+  },
+  {
+    "id": "ascii-starwars",
+    "title": "ASCII Star Wars",
+    "description": "Watch Star Wars Episode IV via Telnet.",
+    "category": "CLI",
+    "difficulty": "Medium",
+    "tags": ["telnet", "movie", "classic"],
+    "previewType": "icon",
+    "iconName": "Film",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "telnet towel.blinkenlights.nl"
+      }
+    ]
+  },
+  {
+    "id": "sudo-sandwich",
+    "title": "Sudo Make Me A Sandwich",
+    "description": "A custom bash alias referencing the famous XKCD comic.",
+    "category": "CLI",
+    "difficulty": "Easy",
+    "tags": ["bash", "xkcd", "humor"],
+    "previewType": "icon",
+    "iconName": "Coffee",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "alias sandwich='if [ $(id -u) -eq 0 ]; then echo \"Okay.\"; else echo \"What? Make it yourself.\"; fi'"
+      }
+    ]
+  },
+  {
+    "id": "sl-train",
+    "title": "Steam Locomotive (sl)",
+    "description": "Punish typos of 'ls' with a steam train driving across your terminal.",
+    "category": "CLI",
+    "difficulty": "Easy",
+    "tags": ["package", "train", "typo"],
+    "previewType": "icon",
+    "iconName": "Terminal",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "sudo apt-get install sl\n# Run by typing 'sl' instead of 'ls'"
+      }
+    ]
+  },
+  {
+    "id": "cowsay-moo",
+    "title": "Cowsay",
+    "description": "A configurable talking cow in your terminal.",
+    "category": "CLI",
+    "difficulty": "Easy",
+    "tags": ["package", "cow", "text"],
+    "previewType": "icon",
+    "iconName": "MessageCircle",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "cowsay \"Hello World\""
+      }
+    ]
+  },
+  {
+    "id": "fortune-cookie-cli",
+    "title": "Fortune",
+    "description": "Display a random quote or fortune in the terminal.",
+    "category": "CLI",
+    "difficulty": "Easy",
+    "tags": ["package", "quote", "text"],
+    "previewType": "icon",
+    "iconName": "Terminal",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "fortune | cowsay"
+      }
+    ]
+  },
+  {
+    "id": "toilet-text",
+    "title": "Toilet",
+    "description": "Print large colorful text in the terminal using ASCII characters.",
+    "category": "CLI",
+    "difficulty": "Easy",
+    "tags": ["package", "ascii", "art"],
+    "previewType": "icon",
+    "iconName": "Terminal",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "toilet -f mono12 -F metal \"Easter Egg\""
+      }
+    ]
+  },
+  {
+    "id": "cmatrix-rain",
+    "title": "CMatrix",
+    "description": "Simulate the Matrix digital rain in your terminal.",
+    "category": "CLI",
+    "difficulty": "Medium",
+    "tags": ["package", "matrix", "screensaver"],
+    "previewType": "icon",
+    "iconName": "Code",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "sudo apt-get install cmatrix\ncmatrix"
+      }
+    ]
+  },
+  {
+    "id": "aafire-burn",
+    "title": "AAFire",
+    "description": "Display a burning fire effect using ASCII art.",
+    "category": "CLI",
+    "difficulty": "Medium",
+    "tags": ["package", "fire", "visual"],
+    "previewType": "icon",
+    "iconName": "Zap",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "sudo apt-get install libaa-bin\naafire"
+      }
+    ]
+  },
+  {
+    "id": "oneko-cat",
+    "title": "Oneko",
+    "description": "A small cat that chases your mouse cursor around the screen.",
+    "category": "Desktop",
+    "difficulty": "Medium",
+    "tags": ["linux", "cat", "cursor"],
+    "previewType": "icon",
+    "iconName": "Smile",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "sudo apt-get install oneko\noneko"
+      }
+    ]
+  },
+  {
+    "id": "xeyes-watch",
+    "title": "Xeyes",
+    "description": "A pair of eyes that follow your mouse cursor.",
+    "category": "Desktop",
+    "difficulty": "Easy",
+    "tags": ["linux", "eyes", "classic"],
+    "previewType": "icon",
+    "iconName": "Smile",
+    "snippets": [
+      {
+        "label": "Bash",
+        "language": "bash",
+        "code": "xeyes"
+      }
+    ]
+  },
+  {
+    "id": "geek-typer",
+    "title": "Geek Typer",
+    "description": "A full-screen interface that simulates hacking scenes from movies.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["ui", "prank", "simulation"],
+    "previewType": "icon",
+    "iconName": "Lock",
+    "snippets": [
+      {
+        "label": "Concept",
+        "language": "text",
+        "code": "Create a full-screen black overlay with green text. Listen to any keypress and append chunks of pre-written 'hacking' code to the screen."
+      }
+    ]
+  },
+  {
+    "id": "zerg-rush",
+    "title": "Zerg Rush",
+    "description": "Small 'O' characters attack and destroy page elements.",
+    "category": "Web",
+    "difficulty": "Chaotic",
+    "tags": ["game", "google", "destruction"],
+    "previewType": "icon",
+    "iconName": "Bug",
+    "snippets": [
+      {
+        "label": "Concept",
+        "language": "text",
+        "code": "Spawn small div elements that move towards other DOM elements. On collision, remove the target element and increment score."
+      }
+    ]
+  },
+  {
+    "id": "askew-tilt",
+    "title": "Askew",
+    "description": "Slightly tilt the entire page to annoy perfectionists.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["css", "google", "prank"],
+    "previewType": "icon",
+    "iconName": "RotateCw",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "body {\n  transform: rotate(1deg);\n}"
+      }
+    ]
+  },
+  {
+    "id": "recursion-link",
+    "title": "Recursion",
+    "description": "A link that asks 'Did you mean: Recursion' and reloads the page.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["google", "logic", "nerd"],
+    "previewType": "icon",
+    "iconName": "RotateCw",
+    "snippets": [
+      {
+        "label": "HTML",
+        "language": "html",
+        "code": "<a href=\"?q=recursion\">Did you mean: Recursion?</a>"
+      }
+    ]
+  },
+  {
+    "id": "answer-42",
+    "title": "The Answer",
+    "description": "Calculator returns 42 when asked about life, the universe, and everything.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["math", "hitchhiker", "classic"],
+    "previewType": "icon",
+    "iconName": "Terminal",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "if (query.toLowerCase().includes('life')) return 42;"
+      }
+    ]
+  },
+  {
+    "id": "thanos-snap",
+    "title": "Thanos Snap",
+    "description": "Turn half of the DOM elements into dust using canvas particles.",
+    "category": "Web",
+    "difficulty": "Chaotic",
+    "tags": ["marvel", "canvas", "effect"],
+    "previewType": "icon",
+    "iconName": "Zap",
+    "snippets": [
+      {
+        "label": "Library",
+        "language": "javascript",
+        "code": "// Use html2canvas to capture element\n// Break into particles\n// Animate particles fading away"
+      }
+    ]
+  },
+  {
+    "id": "lightsaber-cursor",
+    "title": "Lightsaber Cursor",
+    "description": "Replace the mouse cursor with a glowing lightsaber.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["css", "starwars", "cursor"],
+    "previewType": "icon",
+    "iconName": "Zap",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "body {\n  cursor: url('lightsaber.png'), auto;\n}"
+      }
+    ]
+  },
+  {
+    "id": "party-mode",
+    "title": "Party Mode",
+    "description": "Flash background colors and play music.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["epilepsy-warning", "colors", "fun"],
+    "previewType": "icon",
+    "iconName": "Zap",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "@keyframes party {\n  0% { background: red; }\n  25% { background: blue; }\n  50% { background: green; }\n  75% { background: yellow; }\n}\nbody.party { animation: party 0.5s infinite; }"
+      }
+    ]
+  },
+  {
+    "id": "invert-colors",
+    "title": "Invert World",
+    "description": "Invert all colors on the page for a spooky effect.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["css", "filter", "accessibility"],
+    "previewType": "icon",
+    "iconName": "Sun",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "html {\n  filter: invert(1);\n}"
+      }
+    ]
+  },
+  {
+    "id": "blur-page",
+    "title": "My Glasses!",
+    "description": "Blur the entire page content.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["css", "filter", "prank"],
+    "previewType": "icon",
+    "iconName": "EyeOff",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "body {\n  filter: blur(5px);\n}"
+      }
+    ]
+  },
+  {
+    "id": "pixelate-canvas",
+    "title": "Pixelate",
+    "description": "Render the page at low resolution and scale it up.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["canvas", "retro", "visual"],
+    "previewType": "icon",
+    "iconName": "Grid",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "canvas {\n  image-rendering: pixelated;\n}"
+      }
+    ]
+  },
+  {
+    "id": "crt-monitor",
+    "title": "CRT Monitor",
+    "description": "Add scanlines, curvature, and chromatic aberration.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["css", "retro", "aesthetic"],
+    "previewType": "icon",
+    "iconName": "Monitor",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": ".crt::before {\n  content: \" \";\n  display: block;\n  position: absolute;\n  top: 0; left: 0; bottom: 0; right: 0;\n  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));\n  z-index: 2;\n  background-size: 100% 2px, 3px 100%;\n  pointer-events: none;\n}"
+      }
+    ]
+  },
+  {
+    "id": "vaporwave-filter",
+    "title": "Vaporwave",
+    "description": "Apply pink/purple gradients and retro aesthetics.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["css", "aesthetic", "music"],
+    "previewType": "icon",
+    "iconName": "Music",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "body {\n  background: linear-gradient(to bottom, #ff71ce, #01cdfe, #05ffa1, #b967ff, #fffb96);\n}"
+      }
+    ]
+  },
+  {
+    "id": "sound-8bit",
+    "title": "8-Bit Sounds",
+    "description": "Play retro game sounds on button clicks.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["audio", "retro", "game"],
+    "previewType": "icon",
+    "iconName": "Speaker",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "const audio = new Audio('jump.wav');\nbutton.addEventListener('click', () => audio.play());"
+      }
+    ]
+  },
+  {
+    "id": "wilhelm-scream",
+    "title": "Wilhelm Scream",
+    "description": "Play the famous stock sound effect on a specific error or fall.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["audio", "movie", "meme"],
+    "previewType": "icon",
+    "iconName": "Speaker",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "function onError() {\n  new Audio('wilhelm.mp3').play();\n}"
+      }
+    ]
+  },
+  {
+    "id": "trex-runner",
+    "title": "T-Rex Runner",
+    "description": "The Chrome offline dinosaur game.",
+    "category": "Game",
+    "difficulty": "Medium",
+    "tags": ["chrome", "game", "offline"],
+    "previewType": "icon",
+    "iconName": "Gamepad2",
+    "snippets": [
+      {
+        "label": "Info",
+        "language": "text",
+        "code": "Type chrome://dino in your address bar (Chrome only) or disconnect internet."
+      }
+    ]
+  },
+  {
+    "id": "pong-title",
+    "title": "Title Pong",
+    "description": "Simulate a game of Pong in the browser tab title.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["title", "game", "hack"],
+    "previewType": "icon",
+    "iconName": "Gamepad2",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "// Update document.title repeatedly with frames of the game\ndocument.title = '|  .  |';"
+      }
+    ]
+  },
+  {
+    "id": "favicon-anim",
+    "title": "Animated Favicon",
+    "description": "Animate the site favicon (e.g., loading spinner or game).",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["favicon", "canvas", "ui"],
+    "previewType": "icon",
+    "iconName": "Image",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "// Draw to hidden canvas, convert to data URL, update link tag\nlink.href = canvas.toDataURL('image/png');"
+      }
+    ]
+  },
+  {
+    "id": "console-rainbow",
+    "title": "Console Rainbow",
+    "description": "Print rainbow colored text to the developer console.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["console", "colors", "dev"],
+    "previewType": "icon",
+    "iconName": "Terminal",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "console.log('%c R %c A %c I %c N %c B %c O %c W ', \n  'color: red', 'color: orange', 'color: yellow', 'color: green', 'color: blue', 'color: indigo', 'color: violet');"
+      }
+    ]
+  },
+  {
+    "id": "self-destruct",
+    "title": "Self Destruct",
+    "description": "Show a countdown and then clear the document body.",
+    "category": "Web",
+    "difficulty": "Chaotic",
+    "tags": ["prank", "destruction", "ui"],
+    "previewType": "icon",
+    "iconName": "Skull",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "let count = 5;\nconst timer = setInterval(() => {\n  console.log('Destruction in ' + count);\n  count--;\n  if (count < 0) {\n    document.body.innerHTML = '';\n    clearInterval(timer);\n  }\n}, 1000);"
+      }
+    ]
+  },
+  {
+    "id": "fake-update",
+    "title": "Fake Update",
+    "description": "Display a realistic looking OS update screen to trick users.",
+    "category": "Web",
+    "difficulty": "Chaotic",
+    "tags": ["prank", "windows", "mac"],
+    "previewType": "icon",
+    "iconName": "Monitor",
+    "snippets": [
+      {
+        "label": "HTML/CSS",
+        "language": "html",
+        "code": "<div class=\"fullscreen-loader\">Configuring updates... 99%</div>"
+      }
+    ]
+  },
+  {
+    "id": "anti-gravity",
+    "title": "Anti-Gravity",
+    "description": "Elements float upwards instead of falling.",
+    "category": "Web",
+    "difficulty": "Medium",
+    "tags": ["physics", "css", "fun"],
+    "previewType": "icon",
+    "iconName": "ArrowDown",
+    "snippets": [
+      {
+        "label": "CSS",
+        "language": "css",
+        "code": "body { transform: rotate(180deg); } /* Simple way */\n/* Or use negative gravity in physics engine */"
+      }
+    ]
+  },
+  {
+    "id": "elevator-music",
+    "title": "Elevator Music",
+    "description": "Play soothing Bossa Nova music when the user scrolls.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["audio", "scroll", "ux"],
+    "previewType": "icon",
+    "iconName": "Music",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "window.onscroll = () => {\n  if (!audio.playing) audio.play();\n  clearTimeout(timer);\n  timer = setTimeout(() => audio.pause(), 100);\n};"
+      }
+    ]
+  },
+  {
+    "id": "nyan-scroll",
+    "title": "Nyan Scroll",
+    "description": "A progress bar at the top of the page featuring Nyan Cat.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["ui", "scroll", "meme"],
+    "previewType": "icon",
+    "iconName": "Rocket",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "window.onscroll = () => {\n  const scrolled = window.scrollY / (document.body.scrollHeight - window.innerHeight);\n  nyanCat.style.left = (scrolled * 100) + '%';\n};"
+      }
+    ]
+  },
+  {
+    "id": "custom-context",
+    "title": "Custom Context Menu",
+    "description": "Replace the browser right-click menu with a custom one.",
+    "category": "Web",
+    "difficulty": "Easy",
+    "tags": ["ui", "ux", "menu"],
+    "previewType": "icon",
+    "iconName": "Settings",
+    "snippets": [
+      {
+        "label": "JavaScript",
+        "language": "javascript",
+        "code": "document.addEventListener('contextmenu', (e) => {\n  e.preventDefault();\n  customMenu.style.top = e.clientY + 'px';\n  customMenu.style.left = e.clientX + 'px';\n  customMenu.show();\n});"
       }
     ]
   }

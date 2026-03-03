@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Gamepad2, Terminal, Smartphone, Globe, Monitor, Zap, Ghost, Skull, Smile, LucideIcon } from 'lucide-react';
+import { ArrowRight, Gamepad2, Terminal, Smartphone, Globe, Monitor, Zap, Ghost, Skull, Smile, ArrowDown, RotateCw, Film, LucideIcon, Bug, Coffee, Music, Image, Search, Lock, Key, Map, Rocket, Car, Cloud, Sun, Moon, Star, Heart, MessageCircle, Bell, Calendar, Clock, Camera, Mic, Speaker, Wifi, Battery, Cpu, Database, Server, Save, Trash, File, Folder, Home, User, Settings, Wrench, Hammer, Palette, Book, Link, Share, Download, Power, Shield, AlertTriangle, Info, HelpCircle, EyeOff, Grid, Code } from 'lucide-react';
 import { EasterEgg, Category, Difficulty } from '../data/eggs';
 import clsx from 'clsx';
 import { GlowingEffect } from './ui/glowing-effect';
@@ -19,7 +19,59 @@ const iconMap: Record<string, LucideIcon> = {
   Zap,
   Ghost,
   Skull,
-  Smile
+  Smile,
+  ArrowDown,
+  RotateCw,
+  Film,
+  Bug,
+  Coffee,
+  Music,
+  Image,
+  Search,
+  Lock,
+  Key,
+  Map,
+  Rocket,
+  Car,
+  Cloud,
+  Sun,
+  Moon,
+  Star,
+  Heart,
+  MessageCircle,
+  Bell,
+  Calendar,
+  Clock,
+  Camera,
+  Mic,
+  Speaker,
+  Wifi,
+  Battery,
+  Cpu,
+  Database,
+  Server,
+  Save,
+  Trash,
+  File,
+  Folder,
+  Home,
+  User,
+  Settings,
+  Wrench,
+  Hammer,
+  Palette,
+  Book,
+  Link,
+  Share,
+  Download,
+  Power,
+  Shield,
+  AlertTriangle,
+  Info,
+  HelpCircle,
+  EyeOff,
+  Grid,
+  Code
 };
 
 const categoryColors: Record<Category, string> = {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Copy, Check, Terminal, Code, Monitor, Smartphone, Globe, Gamepad2, Zap, Ghost, Skull, Smile } from 'lucide-react';
+import { X, Copy, Check, Terminal, Code, Monitor, Smartphone, Globe, Gamepad2, Zap, Ghost, Skull, Smile, ArrowDown, RotateCw, Film, Bug, Coffee, Music, Image, Search, Lock, Key, Map, Rocket, Car, Cloud, Sun, Moon, Star, Heart, MessageCircle, Bell, Calendar, Clock, Camera, Mic, Speaker, Wifi, Battery, Cpu, Database, Server, Save, Trash, File, Folder, Home, User, Settings, Wrench, Hammer, Palette, Book, Link, Share, Download, Power, Shield, AlertTriangle, Info, HelpCircle, EyeOff, Grid } from 'lucide-react';
 import { EasterEgg, CodeSnippet } from '../data/eggs';
 import { CodeBlock } from './CodeBlock';
 import clsx from 'clsx';
@@ -19,7 +19,59 @@ const iconMap: Record<string, any> = {
   Zap,
   Ghost,
   Skull,
-  Smile
+  Smile,
+  ArrowDown,
+  RotateCw,
+  Film,
+  Bug,
+  Coffee,
+  Music,
+  Image,
+  Search,
+  Lock,
+  Key,
+  Map,
+  Rocket,
+  Car,
+  Cloud,
+  Sun,
+  Moon,
+  Star,
+  Heart,
+  MessageCircle,
+  Bell,
+  Calendar,
+  Clock,
+  Camera,
+  Mic,
+  Speaker,
+  Wifi,
+  Battery,
+  Cpu,
+  Database,
+  Server,
+  Save,
+  Trash,
+  File,
+  Folder,
+  Home,
+  User,
+  Settings,
+  Wrench,
+  Hammer,
+  Palette,
+  Book,
+  Link,
+  Share,
+  Download,
+  Power,
+  Shield,
+  AlertTriangle,
+  Info,
+  HelpCircle,
+  EyeOff,
+  Grid,
+  Code
 };
 
 export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
