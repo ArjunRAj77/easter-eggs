@@ -21,8 +21,8 @@ export const CodeBlock: React.FC<CodeBlockProps> = ({ code, language, label }) =
   };
 
   return (
-    <div className="relative group rounded-lg overflow-hidden bg-[#1e293b] border border-white/5">
-      <div className="flex items-center justify-between px-4 py-2 bg-[#0f172a]/50 border-b border-white/5">
+    <div className="relative group rounded-lg overflow-hidden bg-[#0f172a] border border-white/5">
+      <div className="flex items-center justify-between px-4 py-2 bg-[#020617]/50 border-b border-white/5">
         <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">
           {label || language}
         </span>

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Gamepad2, Terminal, Smartphone, Globe, Monitor, Zap, Ghost, Skull, Smile, LucideIcon } from 'lucide-react';
 import { EasterEgg, Category, Difficulty } from '../data/eggs';
 import clsx from 'clsx';
+import { GlowingEffect } from './ui/glowing-effect';
 
 interface EggCardProps {
   egg: EasterEgg;
@@ -44,41 +45,50 @@ export const EggCard: React.FC<EggCardProps> = ({ egg, onClick }) => {
       onClick={() => onClick(egg)}
       whileHover={{ y: -4, scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      className="group relative bg-[#1e293b] rounded-2xl p-6 border border-white/5 hover:border-white/10 cursor-pointer transition-colors overflow-hidden"
+      className="group relative h-full cursor-pointer"
     >
-      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-      
-      <div className="relative z-10 flex flex-col h-full">
-        <div className="flex justify-between items-start mb-4">
-          <div className={clsx(
-            "p-3 rounded-xl border backdrop-blur-sm",
-            categoryColors[egg.category]
-          )}>
-            <Icon size={24} />
-          </div>
-          <span className={clsx(
-            "text-xs font-medium px-2 py-1 rounded-full bg-white/5 border border-white/5",
-            difficultyColors[egg.difficulty],
-            egg.difficulty === 'Chaotic' && "group-hover:animate-shake"
-          )}>
-            {egg.difficulty}
-          </span>
-        </div>
-
-        <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#818cf8] transition-colors">
-          {egg.title}
-        </h3>
+      <div className="relative h-full rounded-2xl border border-white/5 p-0.5">
+        <GlowingEffect
+          spread={40}
+          glow={true}
+          disabled={false}
+          proximity={64}
+          inactiveZone={0.01}
+          borderWidth={3}
+        />
         
-        <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
-          {egg.description}
-        </p>
+        <div className="relative z-10 flex flex-col h-full bg-[#0f172a] rounded-[14px] p-6 overflow-hidden">
+          <div className="flex justify-between items-start mb-4">
+            <div className={clsx(
+              "p-3 rounded-xl border backdrop-blur-sm",
+              categoryColors[egg.category]
+            )}>
+              <Icon size={24} />
+            </div>
+            <span className={clsx(
+              "text-xs font-medium px-2 py-1 rounded-full bg-white/5 border border-white/5",
+              difficultyColors[egg.difficulty],
+              egg.difficulty === 'Chaotic' && "group-hover:animate-shake"
+            )}>
+              {egg.difficulty}
+            </span>
+          </div>
 
-        <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
-          <span className="text-xs text-slate-500 font-mono">
-            {egg.category}
-          </span>
-          <div className="flex items-center gap-1 text-xs font-medium text-[#818cf8] opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
-            View Code <ArrowRight size={14} />
+          <h3 className="text-lg font-semibold text-white mb-2 group-hover:text-[#818cf8] transition-colors">
+            {egg.title}
+          </h3>
+          
+          <p className="text-slate-400 text-sm leading-relaxed mb-6 flex-grow">
+            {egg.description}
+          </p>
+
+          <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/5">
+            <span className="text-xs text-slate-500 font-mono">
+              {egg.category}
+            </span>
+            <div className="flex items-center gap-1 text-xs font-medium text-[#818cf8] opacity-0 group-hover:opacity-100 transition-all transform translate-x-2 group-hover:translate-x-0">
+              View Code <ArrowRight size={14} />
+            </div>
           </div>
         </div>
       </div>

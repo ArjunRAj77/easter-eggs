@@ -25,7 +25,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
   const difficulties: (Difficulty | 'All')[] = ['All', 'Easy', 'Medium', 'Chaotic'];
 
   return (
-    <div className="sticky top-0 z-40 bg-[#0f172a]/80 backdrop-blur-xl border-b border-white/5 py-4 mb-8">
+    <div className="sticky top-0 z-40 bg-[#020617]/80 backdrop-blur-xl border-b border-white/5 py-4 mb-8">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
           
@@ -37,7 +37,7 @@ export const FilterBar: React.FC<FilterBarProps> = ({
               placeholder="Search easter eggs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#1e293b] border border-white/5 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 focus:border-[#818cf8]/50 transition-all"
+              className="w-full bg-[#0f172a] border border-white/5 rounded-xl pl-10 pr-4 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 focus:border-[#818cf8]/50 transition-all"
             />
             {searchQuery && (
               <button

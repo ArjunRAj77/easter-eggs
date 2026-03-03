@@ -42,7 +42,7 @@ export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
           >
             <motion.div
               layoutId={`card-${egg.id}`}
-              className="bg-[#1e293b] w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border border-white/10 relative"
+              className="bg-[#0f172a] w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl border border-white/10 relative"
               onClick={(e) => e.stopPropagation()}
             >
               <button
@@ -54,7 +54,7 @@ export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
 
               <div className="grid grid-cols-1 md:grid-cols-2 h-full min-h-[600px]">
                 {/* Left: Info & Preview */}
-                <div className="p-8 md:p-12 flex flex-col bg-gradient-to-br from-[#1e293b] to-[#0f172a]">
+                <div className="p-8 md:p-12 flex flex-col bg-gradient-to-br from-[#0f172a] to-[#020617]">
                   <div className="mb-8">
                     <div className="w-16 h-16 rounded-2xl bg-[#818cf8]/10 flex items-center justify-center text-[#818cf8] mb-6 border border-[#818cf8]/20 shadow-lg shadow-indigo-500/10">
                       <Icon size={32} />
@@ -90,7 +90,7 @@ export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
                 </div>
 
                 {/* Right: Code */}
-                <div className="bg-[#0f172a] border-l border-white/5 flex flex-col">
+                <div className="bg-[#020617] border-l border-white/5 flex flex-col">
                   <div className="flex items-center border-b border-white/5 overflow-x-auto no-scrollbar">
                     {egg.snippets.map((snippet, index) => (
                       <button

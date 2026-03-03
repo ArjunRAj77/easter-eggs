@@ -7,8 +7,8 @@
 }
 
 :root {
-  --bg-dark: #0f172a;
-  --bg-card: #1e293b;
+  --bg-dark: #020617; /* Slate 950 - Deeper Black */
+  --bg-card: #0f172a; /* Slate 900 */
   --accent: #818cf8;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;

@@ -77,7 +77,7 @@ function App() {
       
       <div className="min-h-screen pb-20">
         {/* Hero Section */}
-        <div className="relative overflow-hidden bg-[#0f172a] py-20 sm:py-32 border-b border-white/5">
+        <div className="relative overflow-hidden py-20 sm:py-32 border-b border-white/5">
           <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 brightness-100 contrast-150 mix-blend-overlay"></div>
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-indigo-500/20 rounded-full blur-[120px] -z-10 opacity-50 pointer-events-none" />
           
@@ -94,16 +94,6 @@ function App() {
                 A curated collection of delightful code snippets to hide in your projects. 
                 Copy, paste, and surprise your users.
               </p>
-              
-              <div className="flex justify-center gap-4">
-                <button 
-                  onClick={() => setIsSubmissionOpen(true)}
-                  className="px-6 py-3 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white font-medium transition-all flex items-center gap-2 group"
-                >
-                  <Plus size={18} className="text-indigo-400 group-hover:rotate-90 transition-transform" />
-                  Submit an Egg
-                </button>
-              </div>
             </motion.div>
           </div>
         </div>

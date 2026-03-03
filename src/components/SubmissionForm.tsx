@@ -36,7 +36,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose 
             initial={{ scale: 0.95, opacity: 0, y: 20 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
-            className="bg-[#1e293b] w-full max-w-lg rounded-2xl border border-white/10 shadow-2xl relative overflow-hidden"
+            className="bg-[#0f172a] w-full max-w-lg rounded-2xl border border-white/10 shadow-2xl relative overflow-hidden"
           >
             <button
               onClick={onClose}
@@ -73,7 +73,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose 
                       <input
                         type="text"
                         required
-                        className="w-full bg-[#0f172a] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all"
+                        className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all"
                         placeholder="e.g. Konami Code"
                       />
                     </div>
@@ -83,7 +83,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose 
                         <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1.5">
                           Category
                         </label>
-                        <select className="w-full bg-[#0f172a] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all appearance-none">
+                        <select className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all appearance-none">
                           <option>Web</option>
                           <option>Mobile</option>
                           <option>Game</option>
@@ -95,7 +95,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose 
                         <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1.5">
                           Difficulty
                         </label>
-                        <select className="w-full bg-[#0f172a] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all appearance-none">
+                        <select className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all appearance-none">
                           <option>Easy</option>
                           <option>Medium</option>
                           <option>Chaotic</option>
@@ -110,7 +110,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose 
                       <textarea
                         required
                         rows={3}
-                        className="w-full bg-[#0f172a] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all resize-none"
+                        className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all resize-none"
                         placeholder="What does it do?"
                       />
                     </div>
@@ -122,7 +122,7 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose 
                       <textarea
                         required
                         rows={4}
-                        className="w-full bg-[#0f172a] border border-white/10 rounded-lg px-4 py-2.5 text-white font-mono text-sm placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all resize-none"
+                        className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white font-mono text-sm placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all resize-none"
                         placeholder="// Paste your code here..."
                       />
                     </div>

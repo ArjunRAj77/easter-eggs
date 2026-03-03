@@ -1,5 +1,6 @@
 import React from 'react';
 import { Github, Twitter, Coffee } from 'lucide-react';
+import { StarBackground } from './StarBackground';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,8 +9,9 @@ interface LayoutProps {
 
 export const Layout: React.FC<LayoutProps> = ({ children, onOpenSubmission }) => {
   return (
-    <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-[#818cf8] selection:text-white">
-      <nav className="border-b border-white/5 bg-[#0f172a]/80 backdrop-blur-md sticky top-0 z-50">
+    <div className="min-h-screen bg-[#020617] text-slate-200 selection:bg-[#818cf8] selection:text-white relative">
+      <StarBackground />
+      <nav className="border-b border-white/5 bg-[#020617]/80 backdrop-blur-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-indigo-500/20">
@@ -47,7 +49,7 @@ export const Layout: React.FC<LayoutProps> = ({ children, onOpenSubmission }) =>
         {children}
       </main>
 
-      <footer className="border-t border-white/5 py-12 mt-20 bg-[#0f172a]">
+      <footer className="border-t border-white/5 py-12 mt-20 bg-[#020617] relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-center md:text-left">
             <p className="text-slate-500 text-sm">
