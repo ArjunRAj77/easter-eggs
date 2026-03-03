@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, Copy, Check, Terminal, Code, Monitor, Smartphone, Globe, Gamepad2, Zap, Ghost, Skull, Smile, ArrowDown, RotateCw, Film, Bug, Coffee, Music, Image, Search, Lock, Key, Map, Rocket, Car, Cloud, Sun, Moon, Star, Heart, MessageCircle, Bell, Calendar, Clock, Camera, Mic, Speaker, Wifi, Battery, Cpu, Database, Server, Save, Trash, File, Folder, Home, User, Settings, Wrench, Hammer, Palette, Book, Link, Share, Download, Power, Shield, AlertTriangle, Info, HelpCircle, EyeOff, Grid } from 'lucide-react';
 import { EasterEgg, CodeSnippet } from '../data/eggs';
 import { CodeBlock } from './CodeBlock';
+import { EggPreview } from './EggPreview';
 import clsx from 'clsx';
 
 interface EggDetailProps {
@@ -158,15 +159,30 @@ export const EggDetail: React.FC<EggDetailProps> = ({ egg, onClose }) => {
                         {snippet.label}
                       </button>
                     ))}
+                    <button
+                      onClick={() => setActiveTab(egg.snippets.length)}
+                      className={clsx(
+                        "px-6 py-4 text-sm font-medium border-b-2 transition-colors whitespace-nowrap flex items-center gap-2",
+                        activeTab === egg.snippets.length
+                          ? "border-[#818cf8] text-white bg-white/5"
+                          : "border-transparent text-slate-500 hover:text-slate-300 hover:bg-white/5"
+                      )}
+                    >
+                      <Zap size={14} /> Preview
+                    </button>
                   </div>
                   
                   <div className="flex-grow overflow-y-auto max-h-[600px]">
-                    {egg.snippets[activeTab] && (
+                    {activeTab < egg.snippets.length ? (
                       <CodeBlock
                         code={egg.snippets[activeTab].code}
                         language={egg.snippets[activeTab].language}
                         label={egg.snippets[activeTab].label}
                       />
+                    ) : (
+                      <div className="p-6 h-full flex flex-col">
+                         <EggPreview egg={egg} />
+                      </div>
                     )}
                   </div>
                 </div>
