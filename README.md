@@ -10,7 +10,10 @@
 
 `React 19` · `TypeScript` · `Vite 6` · `Tailwind CSS 4` · `Motion` · `Canvas 2D` · `WebAudio` — no backend, no accounts, no tracking
 
+<br>
+
 </div>
+
 ---
 
 ## Table of contents
