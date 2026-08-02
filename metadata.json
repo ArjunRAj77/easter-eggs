@@ -1,5 +1,5 @@
 {
-  "name": "easter-egg",
-  "description": "A curated gallery of copy-pasteable easter eggs for developers.",
+  "name": "easter-eggs",
+  "description": "An arcade cabinet full of developer secrets \u2014 60 easter eggs, all playable, all copy-pasteable.",
   "requestFramePermissions": []
 }

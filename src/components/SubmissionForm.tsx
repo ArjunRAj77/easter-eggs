@@ -1,27 +1,114 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { X, Send, CheckCircle } from 'lucide-react';
-import clsx from 'clsx';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { X, Github, ExternalLink, Copy, Check } from 'lucide-react';
+import type { Category, Difficulty } from '../data/eggs';
+import { CATEGORIES, DIFFICULTIES, REPO_URL, categoryLight, difficultyLight } from '../lib/registry';
 
 interface SubmissionFormProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose }) => {
-  const [submitted, setSubmitted] = useState(false);
+const slug = (s: string) =>
+  s.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 40) || 'new-egg';
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Simulate submission
-    setTimeout(() => {
-      setSubmitted(true);
-      setTimeout(() => {
-        setSubmitted(false);
-        onClose();
-      }, 2000);
-    }, 1000);
+/**
+ * Submission.
+ *
+ * The previous version was theatre: `setTimeout(() => setSubmitted(true), 1000)`
+ * with no network call anywhere. It showed a green tick and threw the user's
+ * contribution away. That's worse than no form at all — someone types out a
+ * real easter egg, gets told "thanks for contributing", and it evaporates.
+ *
+ * This one composes the exact JSON object `src/data/eggs.json` expects, then
+ * hands it off two ways that actually work with no backend: a prefilled
+ * GitHub issue, or copy-to-clipboard for a manual PR.
+ */
+export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose }) => {
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState<Category>('Web');
+  const [difficulty, setDifficulty] = useState<Difficulty>('Easy');
+  const [tags, setTags] = useState('');
+  const [language, setLanguage] = useState('javascript');
+  const [code, setCode] = useState('');
+  const [copied, setCopied] = useState(false);
+
+  const panelRef = useRef<HTMLDivElement>(null);
+  const firstRef = useRef<HTMLInputElement>(null);
+  const restoreRef = useRef<Element | null>(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    restoreRef.current = document.activeElement;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const t = window.setTimeout(() => firstRef.current?.focus(), 80);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prev;
+      window.clearTimeout(t);
+      (restoreRef.current as HTMLElement | null)?.focus?.();
+    };
+  }, [isOpen, onClose]);
+
+  /** The exact shape src/data/eggs.json expects — nothing to translate later. */
+  const payload = useMemo(
+    () =>
+      JSON.stringify(
+        {
+          id: slug(title),
+          title: title || 'Your Easter Egg',
+          description: description || 'What it does, in one sentence.',
+          category,
+          difficulty,
+          tags: tags.split(',').map((t) => t.trim()).filter(Boolean),
+          previewType: 'icon',
+          iconName: 'Smile',
+          snippets: [{ label: language, language, code: code || '// your code here' }],
+        },
+        null,
+        2,
+      ),
+    [title, description, category, difficulty, tags, language, code],
+  );
+
+  const issueUrl = useMemo(() => {
+    const body = [
+      `### ${title || 'New easter egg'}`,
+      '',
+      description || '_No description provided._',
+      '',
+      `**Category:** ${category}  •  **Difficulty:** ${difficulty}`,
+      '',
+      'Proposed entry for `src/data/eggs.json`:',
+      '',
+      '```json',
+      payload,
+      '```',
+      '',
+      '---',
+      '_Submitted from the gallery._',
+    ].join('\n');
+
+    return `${REPO_URL}/issues/new?${new URLSearchParams({
+      title: `🥚 New egg: ${title || 'untitled'}`,
+      body,
+      labels: 'new-egg',
+    }).toString()}`;
+  }, [title, description, category, difficulty, payload]);
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(payload);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1900);
+    } catch { /* clipboard blocked — the textarea below is still selectable */ }
   };
+
+  const valid = title.trim().length > 2 && description.trim().length > 5;
 
   return (
     <AnimatePresence>
@@ -30,117 +117,233 @@ export const SubmissionForm: React.FC<SubmissionFormProps> = ({ isOpen, onClose 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-[75] flex items-end sm:items-center justify-center p-0 sm:p-6"
+          style={{ background: 'rgba(6,4,15,0.85)', backdropFilter: 'blur(14px)', WebkitBackdropFilter: 'blur(14px)' }}
+          onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-            className="bg-[#0f172a] w-full max-w-lg rounded-2xl border border-white/10 shadow-2xl relative overflow-hidden"
+            ref={panelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="submit-title"
+            initial={{ opacity: 0, y: 26, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 16, scale: 0.985 }}
+            transition={{ duration: 0.36, ease: [0.16, 1, 0.3, 1] }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-[620px] max-h-[92vh] overflow-hidden rounded-t-2xl sm:rounded-2xl flex flex-col"
+            style={{
+              background: 'linear-gradient(178deg, var(--void-200), var(--void-050) 62%)',
+              border: '1px solid rgba(0,229,255,0.28)',
+              boxShadow: '0 40px 120px -30px rgba(0,0,0,0.96), 0 0 60px -24px var(--cyan)',
+            }}
           >
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
+            <header
+              className="relative shrink-0 px-7 pt-7 pb-5 border-b overflow-hidden"
+              style={{ borderColor: 'rgba(176,108,255,0.20)' }}
             >
-              <X size={20} />
-            </button>
+              <div
+                className="absolute -top-20 -left-12 w-64 h-64 pointer-events-none"
+                style={{ background: 'radial-gradient(circle, rgba(0,229,255,0.16), transparent 66%)', filter: 'blur(36px)' }}
+                aria-hidden="true"
+              />
+              <button
+                onClick={onClose}
+                aria-label="Close"
+                className="absolute top-5 right-5 p-2 rounded-lg transition-colors hover:bg-white/[0.06]"
+                style={{ color: 'var(--text-400)' }}
+              >
+                <X size={17} />
+              </button>
+              <p className="relative font-pixel text-[10px] tracking-eyebrow mb-3" style={{ color: 'var(--amber)' }}>
+                ★ NEW CHALLENGER
+              </p>
+              <h2
+                id="submit-title"
+                className="relative font-display text-[21px] tracking-title mb-2"
+                style={{ color: '#fff', textShadow: '0 0 6px #fff, 0 0 24px var(--cyan)' }}
+              >
+                SUBMIT AN EGG
+              </h2>
+              <p className="relative text-[13px] leading-relaxed" style={{ color: 'var(--text-400)' }}>
+                Fill this in and it becomes a prefilled GitHub issue — or copy the JSON
+                straight into <code className="font-mono text-[12px]" style={{ color: 'var(--cyan)' }}>src/data/eggs.json</code> and open a PR.
+              </p>
+            </header>
 
-            <div className="p-8">
-              {submitted ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: 1 }}
-                    className="w-16 h-16 bg-emerald-500/10 rounded-full flex items-center justify-center text-emerald-400 mb-4"
-                  >
-                    <CheckCircle size={32} />
-                  </motion.div>
-                  <h3 className="text-xl font-bold text-white mb-2">Egg Submitted!</h3>
-                  <p className="text-slate-400">Thanks for contributing to the collection.</p>
-                </div>
-              ) : (
-                <>
-                  <h2 className="text-2xl font-bold text-white mb-2">Submit an Egg</h2>
-                  <p className="text-slate-400 text-sm mb-6">
-                    Found a cool easter egg? Share it with the community.
-                  </p>
+            <div className="flex-1 overflow-y-auto px-7 py-6 space-y-5">
+              <Field label="Title" hint="Short and memorable">
+                <input
+                  ref={firstRef}
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  placeholder="Barrel Roll on Ctrl+Shift+R"
+                  className="egg-input"
+                />
+              </Field>
 
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                      <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1.5">
-                        Title
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all"
-                        placeholder="e.g. Konami Code"
-                      />
-                    </div>
+              <Field label="Description" hint="One sentence — what does the user see?">
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows={2}
+                  placeholder="Rotates the whole page 360° when the shortcut is pressed."
+                  className="egg-input resize-none"
+                />
+              </Field>
 
-                    <div className="grid grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1.5">
-                          Category
-                        </label>
-                        <select className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all appearance-none">
-                          <option>Web</option>
-                          <option>Mobile</option>
-                          <option>Game</option>
-                          <option>CLI</option>
-                          <option>Desktop</option>
-                        </select>
-                      </div>
-                      <div>
-                        <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1.5">
-                          Difficulty
-                        </label>
-                        <select className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all appearance-none">
-                          <option>Easy</option>
-                          <option>Medium</option>
-                          <option>Chaotic</option>
-                        </select>
-                      </div>
-                    </div>
+              <div className="grid grid-cols-2 gap-4">
+                <Field label="Category">
+                  <div className="flex flex-wrap gap-1.5">
+                    {CATEGORIES.map((c) => (
+                      <Chip key={c} active={category === c} tint={categoryLight[c].tint} onClick={() => setCategory(c)}>
+                        {c}
+                      </Chip>
+                    ))}
+                  </div>
+                </Field>
+                <Field label="Difficulty">
+                  <div className="flex flex-wrap gap-1.5">
+                    {DIFFICULTIES.map((d) => (
+                      <Chip key={d} active={difficulty === d} tint={difficultyLight[d].tint} onClick={() => setDifficulty(d)}>
+                        {d}
+                      </Chip>
+                    ))}
+                  </div>
+                </Field>
+              </div>
 
-                    <div>
-                      <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1.5">
-                        Description
-                      </label>
-                      <textarea
-                        required
-                        rows={3}
-                        className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all resize-none"
-                        placeholder="What does it do?"
-                      />
-                    </div>
+              <div className="grid grid-cols-[1fr_150px] gap-4">
+                <Field label="Tags" hint="Comma separated">
+                  <input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="css, animation, keyboard" className="egg-input" />
+                </Field>
+                <Field label="Language">
+                  <select value={language} onChange={(e) => setLanguage(e.target.value)} className="egg-input">
+                    {['javascript', 'typescript', 'python', 'css', 'html', 'bash', 'text'].map((l) => (
+                      <option key={l} value={l} style={{ background: '#0b0b0e' }}>{l}</option>
+                    ))}
+                  </select>
+                </Field>
+              </div>
 
-                    <div>
-                      <label className="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1.5">
-                        Code Snippet
-                      </label>
-                      <textarea
-                        required
-                        rows={4}
-                        className="w-full bg-[#020617] border border-white/10 rounded-lg px-4 py-2.5 text-white font-mono text-sm placeholder-slate-600 focus:outline-none focus:ring-2 focus:ring-[#818cf8]/50 transition-all resize-none"
-                        placeholder="// Paste your code here..."
-                      />
-                    </div>
+              <Field label="Code" hint="Keep it copy-pasteable and safe">
+                <textarea
+                  value={code}
+                  onChange={(e) => setCode(e.target.value)}
+                  rows={6}
+                  spellCheck={false}
+                  placeholder={"document.body.style.transition = 'transform 1s';\ndocument.body.style.transform = 'rotate(360deg)';"}
+                  className="egg-input font-mono text-[12px] resize-y"
+                />
+              </Field>
 
-                    <button
-                      type="submit"
-                      className="w-full bg-[#818cf8] hover:bg-[#6366f1] text-white font-medium py-3 rounded-lg transition-colors flex items-center justify-center gap-2 mt-2"
-                    >
-                      <Send size={18} />
-                      Submit Egg
-                    </button>
-                  </form>
-                </>
-              )}
+              <details className="rounded-xl overflow-hidden" style={{ border: '1px solid rgba(255,255,255,0.06)' }}>
+                <summary
+                  className="px-4 py-2.5 text-[11.5px] font-mono cursor-pointer select-none"
+                  style={{ color: 'var(--text-400)', background: 'rgba(176,108,255,0.06)' }}
+                >
+                  Preview the generated JSON
+                </summary>
+                <pre
+                  className="px-4 py-3 text-[11px] font-mono overflow-auto max-h-52"
+                  style={{ color: 'var(--text-300)', background: 'var(--void-000)' }}
+                >
+                  {payload}
+                </pre>
+              </details>
             </div>
+
+            <footer
+              className="shrink-0 flex flex-col sm:flex-row gap-2.5 px-7 py-5 border-t"
+              style={{ borderColor: 'rgba(176,108,255,0.20)', background: 'rgba(0,0,0,0.24)' }}
+            >
+              <button
+                onClick={copy}
+                className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[12.5px] font-medium transition-all duration-300"
+                style={{
+                  color: copied ? 'var(--lime)' : 'var(--text-300)',
+                  background: 'rgba(176,108,255,0.10)',
+                  border: `1px solid ${copied ? 'var(--lime)' : 'rgba(176,108,255,0.24)'}`,
+                }}
+              >
+                {copied ? <Check size={13} /> : <Copy size={13} />}
+                {copied ? 'JSON copied' : 'Copy JSON'}
+              </button>
+
+              <a
+                href={valid ? issueUrl : undefined}
+                target="_blank"
+                rel="noreferrer noopener"
+                aria-disabled={!valid}
+                onClick={(e) => { if (!valid) e.preventDefault(); }}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-[12.5px] font-semibold transition-all duration-300"
+                style={{
+                  color: valid ? 'var(--void-000)' : 'var(--text-500)',
+                  background: valid ? 'linear-gradient(120deg, var(--cyan), var(--magenta))' : 'rgba(176,108,255,0.08)',
+                  boxShadow: valid ? '0 0 30px -8px var(--magenta)' : 'none',
+                  cursor: valid ? 'pointer' : 'not-allowed',
+                }}
+              >
+                <Github size={14} />
+                Open GitHub issue
+                <ExternalLink size={12} />
+              </a>
+            </footer>
           </motion.div>
+
+          {/* Scoped input styling — Tailwind v4 @apply isn't available inline here. */}
+          <style>{`
+            .egg-input {
+              width: 100%;
+              border-radius: 0.6rem;
+              padding: 0.6rem 0.8rem;
+              font-size: 13px;
+              color: var(--text-100);
+              background: var(--void-150);
+              border: 1px solid rgba(176,108,255,0.22);
+              outline: none;
+              transition: border-color .25s, box-shadow .25s;
+            }
+            .egg-input::placeholder { color: var(--text-500); }
+            .egg-input:focus {
+              border-color: var(--cyan);
+              box-shadow: 0 0 18px -4px var(--cyan);
+            }
+          `}</style>
         </motion.div>
       )}
     </AnimatePresence>
   );
 };
+
+const Field: React.FC<{ label: string; hint?: string; children: React.ReactNode }> = ({ label, hint, children }) => (
+  <label className="block">
+    <span className="flex items-baseline gap-2 mb-2">
+      <span className="font-pixel text-[10px] tracking-eyebrow uppercase" style={{ color: 'var(--text-400)' }}>
+        {label}
+      </span>
+      {hint && <span className="text-[11px]" style={{ color: 'var(--text-500)' }}>{hint}</span>}
+    </span>
+    {children}
+  </label>
+);
+
+const Chip: React.FC<{ active: boolean; tint: string; onClick: () => void; children: React.ReactNode }> = ({
+  active, tint, onClick, children,
+}) => (
+  <button
+    type="button"
+    onClick={onClick}
+    aria-pressed={active}
+    className="px-2.5 py-1 rounded-full text-[11.5px] font-medium transition-all duration-300"
+    style={{
+      color: active ? tint : 'var(--text-400)',
+      background: active ? `${tint}20` : 'rgba(176,108,255,0.07)',
+      border: `1px solid ${active ? tint : 'rgba(176,108,255,0.18)'}`,
+      boxShadow: active ? `0 0 14px -5px ${tint}` : 'none',
+    }}
+  >
+    {children}
+  </button>
+);
